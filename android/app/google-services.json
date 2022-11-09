@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "103978931017",
+    "project_id": "gema-e7f16",
+    "storage_bucket": "gema-e7f16.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:103978931017:android:46a0291642197f84638098",
+        "android_client_info": {
+          "package_name": "com.example.flutter_ecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "103978931017-4tv2gil4dofaji7kmurpflf8lee56l2d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAM1v6F03UDIClMgWIsh32Uvovk6g_bk_8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "103978931017-4tv2gil4dofaji7kmurpflf8lee56l2d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
