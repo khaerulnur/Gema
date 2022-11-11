@@ -21,21 +21,60 @@ class _HomeScreenState extends State<HomeScreen> {
         automaticallyImplyLeading: false,
         backgroundColor: HexColor("#5956E9"),
       ),
-      body: GridView(
-        gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-        children: <Widget>[
-          Card(
-            child: Column(
-              children: [
-                Image.asset(
-                    "assets/images/valorant.png")
+      body: Column(
+        children: [Text("PILIH PRODUK"),
+          Expanded(
+            child: GridView(
+              gridDelegate:
+                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+              children: <Widget>[
+                Card(
+                  child: Image.asset(
+                    "assets/images/valorant.png",
+                    fit: BoxFit.fill,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  margin: EdgeInsets.all(10),
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                ),
+                Card(
+                  child: Image.asset(
+                    "assets/images/csgo.jpg",
+                    fit: BoxFit.fill,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  margin: EdgeInsets.all(10),
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                ),
+                Card(
+                  child: Image.asset(
+                    "assets/images/mobilelegend.jpg",
+                    fit: BoxFit.fill,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  margin: EdgeInsets.all(10),
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                ),
+                Card(
+                  child: Image.asset(
+                    "assets/images/fifa23.jpg",
+                    fit: BoxFit.fill,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  margin: EdgeInsets.all(10),
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                ),
               ],
             ),
           ),
-          FlutterLogo( ),
-          FlutterLogo(),
-          FlutterLogo(),
         ],
       ),
     );
