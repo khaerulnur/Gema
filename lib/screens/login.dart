@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/Utility/style-text.dart';
+import 'package:flutter_ecommerce/screens/home.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -81,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return "Harap Masukkan Password!";
-                        } 
+                        }
                       },
                       obscureText: passwordVisible,
                       obscuringCharacter: '*',
@@ -135,7 +136,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
-                      
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) => const HomeScreen(),
+                        ),
+                      );
                     }
                   },
                   child: Text("Login"),
