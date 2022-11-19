@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/Utility/style-text.dart';
 import 'package:flutter_ecommerce/screens/home.dart';
+import 'package:flutter_ecommerce/screens/register.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -15,6 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController passCtrl = TextEditingController();
   bool passwordVisible = true;
   final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,7 +73,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       decoration: InputDecoration(
                         hintText: "Email",
                         fillColor: HexColor("#5956E9"),
-                        prefixIcon: Icon(Icons.email),
+                        prefixIcon: Icon(
+                          Icons.email,
+                          color: HexColor("#5956E9"),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: HexColor("#5956E9"),
+                          ),
+                        ),
                       ),
                       style: GemaStyle.text17semibold,
                     ),
@@ -89,16 +99,27 @@ class _LoginScreenState extends State<LoginScreen> {
                       controller: passCtrl,
                       decoration: InputDecoration(
                         hintText: "Password",
-                        prefixIcon: Icon(Icons.lock),
+                        prefixIcon: Icon(
+                          Icons.lock,
+                          color: HexColor("#5956E9"),
+                        ),
                         suffixIcon: IconButton(
-                          icon: Icon(passwordVisible
-                              ? Icons.visibility
-                              : Icons.visibility_off),
+                          icon: Icon(
+                            passwordVisible
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            color: HexColor("#5956E9"),
+                          ),
                           onPressed: () {
                             setState(() {
                               passwordVisible = !passwordVisible;
                             });
                           },
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: HexColor("#5956E9"),
+                          ),
                         ),
                       ),
                       style: GemaStyle.text17semibold,
@@ -161,7 +182,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: HexColor("#5956E9"),
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) => const RegisterScreen(),
+                  ),
+                );
+              },
             ),
           ],
         ),
