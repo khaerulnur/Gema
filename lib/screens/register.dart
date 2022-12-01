@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_ecommerce/screens/home.dart';
+import 'package:flutter_ecommerce/screens/home/home.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../Utility/style-text.dart';
