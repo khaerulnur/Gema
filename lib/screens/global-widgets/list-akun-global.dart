@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/utility/custom-loading.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class ListAkunGlobal extends StatefulWidget {
   const ListAkunGlobal({Key? key, required this.stream}) : super(key: key);
-  final Stream<QuerySnapshot<Object?>> stream;
+  final Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> stream;
+
   @override
   State<ListAkunGlobal> createState() => _ListAkunGlobalState();
 }
@@ -13,6 +15,11 @@ class _ListAkunGlobalState extends State<ListAkunGlobal> {
   var searchCtrl = new TextEditingController();
 
   bool statusLanjut = true;
+  @override
+  void initState() {
+    CustomLoading().showLoading();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,107 +94,100 @@ class _ListAkunGlobalState extends State<ListAkunGlobal> {
                 "Daftar Produk",
               ),
             ),
-            StreamBuilder<QuerySnapshot>(
-                stream: widget.stream,
-                builder: (BuildContext context,
-                    AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (!snapshot.hasData) {
-                    print("tidak ada data");
-                    return Text("data");
-                  } else {
-                    print(snapshot.data);
-                    return Expanded(
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: snapshot.data!.docs.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            width: double.infinity,
-                            padding:
-                                const EdgeInsets.only(bottom: 10, left: 16),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.only(bottom: 10),
-                                      width: 40,
-                                      height: 40,
-                                      decoration: BoxDecoration(
-                                        color: HexColor("#F1F1F1"),
-                                        borderRadius: BorderRadius.circular(6),
-                                      ),
-                                      child: Image.asset(
-                                        "assets/images/bag.png",
-                                        width: 18,
-                                        height: 20,
-                                      ),
+            FutureBuilder<List<QueryDocumentSnapshot<Map<String, dynamic>>>>(
+              future: widget.stream,
+              builder: (BuildContext context, snapshot) {
+                if (snapshot.hasData == false) {
+                  CustomLoading().dismissLoading();
+                  print("tidak ada data");
+                  return Text("data");
+                } else {
+                  CustomLoading().dismissLoading();
+                  print(snapshot.data);
+                  return Expanded(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.only(bottom: 10, left: 16),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Row(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(bottom: 10),
+                                    width: 40,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      color: HexColor("#F1F1F1"),
+                                      borderRadius: BorderRadius.circular(6),
                                     ),
-                                    SizedBox(
-                                      width: 10,
+                                    child: Image.asset(
+                                      "assets/images/bag.png",
+                                      width: 18,
+                                      height: 20,
                                     ),
-                                    Expanded(
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.only(
-                                                top: 0, bottom: 5),
-                                            child: Row(
-                                              children: [
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      snapshot
-                                                          .data!
-                                                          .docs[index]
-                                                              ["informasiGame"]
-                                                          .toString(),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          padding: const EdgeInsets.only(
+                                              top: 0, bottom: 5),
+                                          child: Row(
+                                            children: [
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    snapshot.data![index]
+                                                            ["status"]
+                                                        .toString(),
+                                                  ),
+                                                  SizedBox(height: 5),
+                                                  Text(
+                                                    snapshot.data![index]
+                                                            ["harga"]
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                      fontFamily: "Montserrat",
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontSize: 14,
                                                     ),
-                                                    Text(
-                                                      snapshot.data!
-                                                          .docs[index]["status"]
-                                                          .toString(),
-                                                    ),
-                                                    SizedBox(height: 5),
-                                                    Text(
-                                                      snapshot.data!
-                                                          .docs[index]["harga"]
-                                                          .toString(),
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            "Montserrat",
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontSize: 14,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Spacer(),
-                                                SizedBox(width: 22),
-                                              ],
-                                            ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Spacer(),
+                                              SizedBox(width: 22),
+                                            ],
                                           ),
-                                          Divider(
-                                            thickness: 1,
-                                            color: HexColor("E3E3E3"),
-                                          ),
-                                        ],
-                                      ),
+                                        ),
+                                        Divider(
+                                          thickness: 1,
+                                          color: HexColor("E3E3E3"),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    );
-                  }
-                })
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                }
+              },
+            ),
           ],
         ),
         floatingActionButton: buttonNavigasi(),

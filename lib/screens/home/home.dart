@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/screens/additem/preview-image.dart';
 import 'package:flutter_ecommerce/screens/home/home-content.dart';
 import 'package:flutter_ecommerce/screens/profile/profile.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -15,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool isProfile = false;
+
   Widget generateListPage(BuildContext context) {
     List<Widget> opsiWidget = <Widget>[
       homeContent(context),
@@ -26,8 +28,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return opsiWidget.elementAt(selectedIndex);
   }
 
+  late File imageFile;
   int selectedIndex = 0;
   final scaffoldState = GlobalKey<ScaffoldState>();
+  final ImagePicker _picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
         body: generateListPage(context),
         bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
           // ignore: prefer_const_literals_to_create_immutables
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
@@ -92,67 +97,73 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Column(
-                                children: [
-                                  Container(
-                                    child: Center(
-                                      child: Icon(
-                                        Icons.camera_alt,
-                                        color: HexColor("5956E9"),
+                              GestureDetector(
+                                onTap: _getFromCamera,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.camera_alt,
+                                          color: HexColor("5956E9"),
+                                        ),
+                                      ),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          border: Border.all(
+                                            width: 3,
+                                            color: Color.fromARGB(
+                                                255, 126, 121, 121),
+                                          ),
+                                          shape: BoxShape.circle),
+                                      width: 60,
+                                      height: 60,
+                                    ),
+                                    Text(
+                                      "Take a Picture",
+                                      style: TextStyle(
+                                        fontFamily: "Montserrat",
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 15,
+                                        color: Colors.white,
                                       ),
                                     ),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(
-                                          width: 3,
-                                          color:
-                                              Color.fromARGB(255, 126, 121, 121),
-                                        ),
-                                        shape: BoxShape.circle),
-                                    width: 60,
-                                    height: 60,
-                                  ),
-                                  Text(
-                                    "Take a Picture",
-                                    style: TextStyle(
-                                      fontFamily: "Montserrat",
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 15,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                              Column(
-                                children: [
-                                  Container(
-                                    child: Center(
-                                      child: Icon(
-                                        Icons.photo_album,
-                                        color: HexColor("5956E9"),
+                              GestureDetector(
+                                onTap: _getFromGallery,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.photo_album,
+                                          color: HexColor("5956E9"),
+                                        ),
+                                      ),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          border: Border.all(
+                                            width: 3,
+                                            color: Color.fromARGB(
+                                                255, 126, 121, 121),
+                                          ),
+                                          shape: BoxShape.circle),
+                                      width: 60,
+                                      height: 60,
+                                    ),
+                                    Text(
+                                      "Choose From Album",
+                                      style: TextStyle(
+                                        fontFamily: "Montserrat",
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 15,
+                                        color: Colors.white,
                                       ),
                                     ),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        border: Border.all(
-                                          width: 3,
-                                          color:
-                                              Color.fromARGB(255, 126, 121, 121),
-                                        ),
-                                        shape: BoxShape.circle),
-                                    width: 60,
-                                    height: 60,
-                                  ),
-                                  Text(
-                                    "Choose From Album",
-                                    style: TextStyle(
-                                      fontFamily: "Montserrat",
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 15,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               )
                             ],
                           ),
@@ -171,5 +182,51 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  Future _getFromGallery() async {
+    XFile? pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      setState(
+        () {
+          imageFile = File(pickedFile.path);
+        },
+      );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return PreviewImageScreen(imageFile: imageFile);
+          },
+        ),
+      );
+    }
+  }
+
+  Future _getFromCamera() async {
+    XFile? pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.camera,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      setState(
+        () {
+          imageFile = File(pickedFile.path);
+        },
+      );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return PreviewImageScreen(imageFile: imageFile);
+          },
+        ),
+      );
+    }
   }
 }

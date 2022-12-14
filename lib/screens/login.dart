@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/Utility/style-text.dart';
 import 'package:flutter_ecommerce/screens/home/home.dart';
 import 'package:flutter_ecommerce/screens/register.dart';
+import 'package:flutter_ecommerce/services/auth.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,6 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController passCtrl = TextEditingController();
   bool passwordVisible = true;
   final formKey = GlobalKey<FormState>();
+  AuthService authController = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -157,6 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
+                      authController.login(emailCtrl.text, passCtrl.text);
                       Navigator.push(
                         context,
                         MaterialPageRoute<void>(

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/screens/global-widgets/list-akun-global.dart';
-import 'package:flutter_ecommerce/services/akun-service.dart';
+import 'package:flutter_ecommerce/services/akun-jual-service.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class PerdanaTselInputScreen extends StatefulWidget {

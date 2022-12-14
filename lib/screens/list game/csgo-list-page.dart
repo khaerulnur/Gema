@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../services/akun-service.dart';
+import '../../services/akun-jual-service.dart';
 import '../global-widgets/list-akun-global.dart';
 
 class CsgoListPage extends StatefulWidget {
