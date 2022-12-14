@@ -5,6 +5,7 @@ import 'package:flutter_ecommerce/screens/home/home.dart';
 import 'package:flutter_ecommerce/screens/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_ecommerce/services/auth.dart';
+import 'package:flutter_ecommerce/utility/custom-loading.dart';
 import 'package:flutter_ecommerce/utility/loading.dart';
 
 Future<void> main() async {
@@ -18,23 +19,21 @@ class MyApp extends StatelessWidget {
   final AuthService authController = AuthService();
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<Object>(
+    return StreamBuilder<User?>(
         stream: authController.streamAuthStatus(),
         builder: (context, snapshot) {
           print(snapshot);
           if (snapshot.connectionState == ConnectionState.active) {
-
+            CustomLoading().dismissLoading();
             return MaterialApp(
-            builder: EasyLoading.init(),
-            title: 'Flutter Demo',
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
-            ),
-            home: snapshot.data != null ? HomeScreen() : LoginScreen(),
-          );
+              builder: EasyLoading.init(),
+              theme: ThemeData(
+                primarySwatch: Colors.blue,
+              ),
+              home: snapshot.data != null ? HomeScreen() : LoginScreen(),
+            );
           }
-         return LoadingView(); 
-        }
-        );
+          return LoadingView();
+        });
   }
 }

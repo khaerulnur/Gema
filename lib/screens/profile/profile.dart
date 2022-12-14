@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/services/auth.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../home/home.dart';
@@ -93,7 +94,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Divider(),
                 buildMenuItem("FAQ", () {}),
                 Divider(),
-                buildMenuItem("Logout", () {}),
+                buildMenuItem(
+                  "Logout",
+                  () {
+                    AuthService().signOut();
+                  },
+                ),
                 Divider(),
               ],
             ),

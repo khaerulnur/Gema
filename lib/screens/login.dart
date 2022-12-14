@@ -160,12 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
                       authController.login(emailCtrl.text, passCtrl.text);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute<void>(
-                          builder: (BuildContext context) => const HomeScreen(),
-                        ),
-                      );
+                      
                     }
                   },
                   child: Text("Login"),

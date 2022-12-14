@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/services/akun-jual-service.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class AddItemDetail extends StatefulWidget {
@@ -13,8 +14,7 @@ class AddItemDetail extends StatefulWidget {
 class _AddItemDetailState extends State<AddItemDetail> {
   TextEditingController rankCtrl = TextEditingController();
   TextEditingController priceCtrl = TextEditingController();
-  TextEditingController gameTypeCtrl = TextEditingController();
-  TextEditingController serverCtrl = TextEditingController();
+  TextEditingController deskripsiCtrl = TextEditingController();
 
   List listGame = ["Valorant", "CSGO", "Mobile Legend", "Fifa23"];
   List listServer = ["SEA", "NA", "EU", "Japan"];
@@ -158,6 +158,7 @@ class _AddItemDetailState extends State<AddItemDetail> {
                       primary: HexColor("#5956E9"),
                     ),
                     onPressed: () {
+                      print(widget.imageFile);
                       if (formKey.currentState!.validate()) {
                         _dialogBuilder(context);
                       }
@@ -225,7 +226,12 @@ class _AddItemDetailState extends State<AddItemDetail> {
                 textStyle: Theme.of(context).textTheme.labelLarge,
               ),
               child: const Text('Lanjut'),
-              onPressed: () {
+              onPressed: () async {
+                String imageURL;
+
+                imageURL = await uploadPic(widget.imageFile);
+                addAccountService(deskripsiCtrl.text, int.parse(priceCtrl.text),
+                    imageURL);
                 Navigator.of(context).pop();
               },
             ),
