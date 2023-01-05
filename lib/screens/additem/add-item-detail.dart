@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce/services/akun-jual-service.dart';
+import 'package:flutter_ecommerce/screens/home/home.dart';
+import 'package:flutter_ecommerce/services/game-account-service.dart';
+import 'package:flutter_ecommerce/utility/custom-loading.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class AddItemDetail extends StatefulWidget {
@@ -228,11 +230,17 @@ class _AddItemDetailState extends State<AddItemDetail> {
               child: const Text('Lanjut'),
               onPressed: () async {
                 String imageURL;
-
+                CustomLoading().showLoading();
                 imageURL = await uploadPic(widget.imageFile);
                 addAccountService(deskripsiCtrl.text, int.parse(priceCtrl.text),
-                    imageURL);
-                Navigator.of(context).pop();
+                    imageURL, gameSelected, serverSelected);
+                CustomLoading().dismissLoading();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) => const HomeScreen(),
+                  ),
+                );
               },
             ),
           ],

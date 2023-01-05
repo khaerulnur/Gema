@@ -6,7 +6,7 @@ class LoadingView extends StatelessWidget {
   const LoadingView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context ,) {
     return MaterialApp(
       builder: EasyLoading.init(),
       home: Scaffold(

@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/Utility/style-text.dart';
 import 'package:flutter_ecommerce/screens/home/home.dart';
 import 'package:flutter_ecommerce/screens/register.dart';
-import 'package:flutter_ecommerce/services/auth.dart';
+import 'package:flutter_ecommerce/services/auth-service.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -157,10 +159,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: ElevatedButton.styleFrom(
                     primary: HexColor("#5956E9"),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     if (formKey.currentState!.validate()) {
-                      authController.login(emailCtrl.text, passCtrl.text);
-                      
+                      authController.login(emailCtrl.text, passCtrl.text,context);
                     }
                   },
                   child: Text("Login"),

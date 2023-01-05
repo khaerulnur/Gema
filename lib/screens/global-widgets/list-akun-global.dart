@@ -5,7 +5,7 @@ import 'package:hexcolor/hexcolor.dart';
 
 class ListAkunGlobal extends StatefulWidget {
   const ListAkunGlobal({Key? key, required this.stream}) : super(key: key);
-  final Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> stream;
+  final Future<QuerySnapshot<Map<String, dynamic>>> stream;
 
   @override
   State<ListAkunGlobal> createState() => _ListAkunGlobalState();
@@ -94,7 +94,7 @@ class _ListAkunGlobalState extends State<ListAkunGlobal> {
                 "Daftar Produk",
               ),
             ),
-            FutureBuilder<List<QueryDocumentSnapshot<Map<String, dynamic>>>>(
+            FutureBuilder<QuerySnapshot<Map<String, dynamic>>>(
               future: widget.stream,
               builder: (BuildContext context, snapshot) {
                 if (snapshot.hasData == false) {
@@ -107,7 +107,7 @@ class _ListAkunGlobalState extends State<ListAkunGlobal> {
                   return Expanded(
                     child: ListView.builder(
                       shrinkWrap: true,
-                      itemCount: snapshot.data!.length,
+                      itemCount: snapshot.data!.docs.length,
                       itemBuilder: (context, index) {
                         return Container(
                           width: double.infinity,
@@ -147,13 +147,13 @@ class _ListAkunGlobalState extends State<ListAkunGlobal> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    snapshot.data![index]
+                                                    snapshot.data!.docs[index]
                                                             ["status"]
                                                         .toString(),
                                                   ),
                                                   SizedBox(height: 5),
                                                   Text(
-                                                    snapshot.data![index]
+                                                    snapshot.data!.docs[index]
                                                             ["harga"]
                                                         .toString(),
                                                     style: TextStyle(

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_ecommerce/screens/home/home.dart';
+import 'package:flutter_ecommerce/services/auth-service.dart';
 import 'package:hexcolor/hexcolor.dart';
-
 import '../Utility/style-text.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -23,6 +22,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   bool passwordVisible = true;
   bool confirmPassVisible = true;
+
+  AuthService auth = AuthService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -203,14 +205,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
             style: ElevatedButton.styleFrom(
               primary: HexColor("#5956E9"),
             ),
-            onPressed: () {
+            onPressed: () async {
               if (formKey.currentState!.validate()) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute<void>(
-                    builder: (BuildContext context) => const HomeScreen(),
-                  ),
-                );
+                auth
+                    .registerWithEmailAndPassword(
+                        context,
+                        emailCtrl.text,
+                        passwordCtrl.text,
+                        firstNameCtrl.text,
+                        lastNameCtrl.text,
+                        nohapeCtrl.text)
+                    .then((value) => {
+                          if (value != null) {Navigator.of(context).pop()}
+                        });
               }
             },
             child: Text("Create"),
