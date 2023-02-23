@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/screens/list%20game/csgo-list-page.dart';
+import 'package:flutter_ecommerce/screens/list%20game/mobile-Legend-list-page.dart';
 
+import '../list game/fifa23-list-page.dart';
 import '../list game/valorant-list-page.dart';
 
 Widget homeContent(BuildContext context) {
@@ -146,7 +148,14 @@ Widget homeContent(BuildContext context) {
               ),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) => MobileLegendListPage(),
+                  ),
+                );
+              },
               child: Card(
                 child: Column(
                   children: [
@@ -188,7 +197,14 @@ Widget homeContent(BuildContext context) {
               ),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (BuildContext context) => FifaListPage(),
+                  ),
+                );
+              },
               child: Card(
                 child: Column(
                   children: [

@@ -50,7 +50,9 @@ class _EditProfileState extends State<EditProfile> {
           icon: Icon(
             Icons.arrow_back,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
       ),
       body: Container(
@@ -64,31 +66,6 @@ class _EditProfileState extends State<EditProfile> {
               const Text(
                 "Edit Profile",
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Container(
-                child: Center(
-                  child: Text(
-                    "KR",
-                    style: TextStyle(
-                      color: HexColor("5956E9"),
-                      fontWeight: FontWeight.w400,
-                      fontSize: 20,
-                      fontFamily: "Montserrat",
-                    ),
-                  ),
-                ),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(
-                      width: 3,
-                      color: Color.fromARGB(255, 126, 121, 121),
-                    ),
-                    shape: BoxShape.circle),
-                width: 60,
-                height: 60,
               ),
               const SizedBox(
                 height: 35,

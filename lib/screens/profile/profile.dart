@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/screens/profile/edit-profile.dart';
 import 'package:flutter_ecommerce/services/auth-service.dart';
 import 'package:flutter_ecommerce/services/profile-service.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -123,7 +124,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         },
                       ),
                       Divider(),
-                      buildMenuItem("Edit Profile", () {}),
+                      buildMenuItem("Edit Profile", () {
+                         Navigator.push(
+                            context,
+                            MaterialPageRoute<void>(
+                              builder: (BuildContext context) =>
+                                  const EditProfile(),
+                            ),
+                          );
+                      }),
                       Divider(),
                       buildMenuItem("Riwayat Pemesanan", () {}),
                       Divider(),

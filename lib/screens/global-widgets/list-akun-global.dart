@@ -1,12 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/screens/product/product-detail.dart';
 import 'package:flutter_ecommerce/utility/custom-loading.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class ListAkunGlobal extends StatefulWidget {
-  const ListAkunGlobal({Key? key, required this.stream}) : super(key: key);
+  const ListAkunGlobal(
+      {Key? key, required this.stream, required this.appbarTitle})
+      : super(key: key);
   final Future<QuerySnapshot<Map<String, dynamic>>> stream;
-
+  final String appbarTitle;
   @override
   State<ListAkunGlobal> createState() => _ListAkunGlobalState();
 }
@@ -28,7 +31,7 @@ class _ListAkunGlobalState extends State<ListAkunGlobal> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text("data"),
+          title: Text(widget.appbarTitle),
           backgroundColor: HexColor("#5956E9"),
         ),
         body: Column(
@@ -109,77 +112,100 @@ class _ListAkunGlobalState extends State<ListAkunGlobal> {
                       shrinkWrap: true,
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (context, index) {
-                        return Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.only(bottom: 10, left: 16),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Row(
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(bottom: 10),
-                                    width: 40,
-                                    height: 40,
-                                    decoration: BoxDecoration(
-                                      color: HexColor("#F1F1F1"),
-                                      borderRadius: BorderRadius.circular(6),
-                                    ),
-                                    child: Image.asset(
-                                      "assets/images/bag.png",
-                                      width: 18,
-                                      height: 20,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          padding: const EdgeInsets.only(
-                                              top: 0, bottom: 5),
-                                          child: Row(
-                                            children: [
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    snapshot.data!.docs[index]
-                                                            ["status"]
-                                                        .toString(),
-                                                  ),
-                                                  SizedBox(height: 5),
-                                                  Text(
-                                                    snapshot.data!.docs[index]
-                                                            ["harga"]
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                      fontFamily: "Montserrat",
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize: 14,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Spacer(),
-                                              SizedBox(width: 22),
-                                            ],
-                                          ),
-                                        ),
-                                        Divider(
-                                          thickness: 1,
-                                          color: HexColor("E3E3E3"),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (BuildContext codatantext) =>
+                                    ProductDetailScreen(
+                                  data: snapshot.data!.docs[index],
+                                ),
                               ),
-                            ],
+                            );
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            padding:
+                                const EdgeInsets.only(bottom: 10, left: 16),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(bottom: 10),
+                                      width: 40,
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                        color: HexColor("#F1F1F1"),
+                                        borderRadius: BorderRadius.circular(6),
+                                      ),
+                                      child: Image.asset(
+                                        "assets/images/bag.png",
+                                        width: 18,
+                                        height: 20,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            padding: const EdgeInsets.only(
+                                                top: 0, bottom: 5),
+                                            child: Row(
+                                              children: [
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      snapshot.data!
+                                                          .docs[index]["status"]
+                                                          .toString(),
+                                                    ),
+                                                    SizedBox(height: 5),
+                                                    Text(
+                                                      snapshot
+                                                          .data!
+                                                          .docs[index]
+                                                              ["namaPenjual"]
+                                                          .toString(),
+                                                    ),
+                                                    SizedBox(height: 5),
+                                                    Text(
+                                                      snapshot.data!
+                                                          .docs[index]["harga"]
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            "Montserrat",
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize: 14,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Spacer(),
+                                                SizedBox(width: 22),
+                                              ],
+                                            ),
+                                          ),
+                                          Divider(
+                                            thickness: 1,
+                                            color: HexColor("E3E3E3"),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         );
                       },
@@ -187,68 +213,6 @@ class _ListAkunGlobalState extends State<ListAkunGlobal> {
                   );
                 }
               },
-            ),
-          ],
-        ),
-        floatingActionButton: buttonNavigasi(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      ),
-    );
-  }
-
-  Widget buttonNavigasi() {
-    return Container(
-      color: Colors.white,
-      width: double.infinity,
-      height: 90,
-      child: Align(
-        alignment: Alignment.bottomCenter,
-        child: Column(
-          children: [
-            Divider(
-              thickness: 5,
-              color: HexColor("F5F5F5"),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
-                        "Setoran Saldo Awal",
-                      ),
-                      Text(
-                        "Rp10000,-",
-                      ),
-                    ],
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      width: MediaQuery.of(context).size.width / 2.5,
-                      height: 40,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                          color: statusLanjut
-                              ? HexColor("E55300")
-                              : Colors.lightBlue),
-                      child: Center(
-                        child: Text(
-                          'Lanjutkan',
-                          style: statusLanjut
-                              ? TextStyle(color: Colors.white)
-                              : TextStyle(color: Colors.orange),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
             ),
           ],
         ),

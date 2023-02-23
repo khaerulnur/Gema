@@ -1,9 +1,12 @@
+import 'dart:convert';
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_ecommerce/models/user-model.dart';
+import 'package:flutter_ecommerce/screens/profile/edit-profile.dart';
 
 var db = FirebaseFirestore.instance;
 final CollectionReference idPenjual = FirebaseFirestore.instance.collection("");
@@ -22,59 +25,95 @@ Future<QuerySnapshot<Map<String, dynamic>>> readAccountCsgo() {
       .get();
 }
 
-Future<void> addAccountService(String deskripsi, int harga, String tautanGambar,
-    String gameSelected, String serverSelected) {
+Future<QuerySnapshot<Map<String, dynamic>>> readAccountFifa23() {
+  return db
+      .collection("fifa23Account")
+      .orderBy("waktuPost", descending: true)
+      .get();
+}
+
+Future<QuerySnapshot<Map<String, dynamic>>> readAccountMobileLegend() {
+  return db
+      .collection("mobileLegendAccount")
+      .orderBy("waktuPost", descending: true)
+      .get();
+}
+
+Future<DocumentReference<Map<String, dynamic>>> addAccountService(
+    String deskripsi,
+    int harga,
+    String tautanGambar,
+    String gameSelected,
+    String serverSelected,
+    String namaProduk) async {
   final String uId = FirebaseAuth.instance.currentUser!.uid;
+
+  String firstName = '';
+  String lastName = '';
+
+  await db.collection('user').doc(uId).get().then((snapshot) {
+    firstName = snapshot.data()!['firstName'].toString();
+    lastName = snapshot.data()!['lastName'].toString();
+  });
+
   if (gameSelected == 'Valorant') {
     return db.collection("valorantAccount").add(
       {
-        'deskirpsi': deskripsi,
+        'deskripsi': deskripsi,
         'harga': harga,
         'idPenjual': uId,
+        'namaPenjual': firstName + " " + lastName,
         'status': 'available',
         'tautanGambar': tautanGambar,
         'waktuPost': Timestamp.fromDate(DateTime.now()),
         'gameType': gameSelected,
         'server': serverSelected,
+        'namaProduk': namaProduk,
       },
     );
   } else if (gameSelected == "CSGO") {
     return db.collection("csgoAccount").add(
       {
-        'deskirpsi': deskripsi,
+        'deskripsi': deskripsi,
         'harga': harga,
         'idPenjual': uId,
+        'namaPenjual': firstName + " " + lastName,
         'status': 'available',
         'tautanGambar': tautanGambar,
         'waktuPost': Timestamp.fromDate(DateTime.now()),
         'gameType': gameSelected,
         'server': serverSelected,
+        'namaProduk': namaProduk,
       },
     );
   } else if (gameSelected == "Mobile Legend") {
     return db.collection("mobileLegendAccount").add(
       {
-        'deskirpsi': deskripsi,
+        'deskripsi': deskripsi,
         'harga': harga,
         'idPenjual': uId,
+        'namaPenjual': firstName + " " + lastName,
         'status': 'available',
         'tautanGambar': tautanGambar,
         'waktuPost': Timestamp.fromDate(DateTime.now()),
         'gameType': gameSelected,
         'server': serverSelected,
+        'namaProduk': namaProduk,
       },
     );
   } else {
     return db.collection("fifa23Account").add(
       {
-        'deskirpsi': deskripsi,
+        'deskripsi': deskripsi,
         'harga': harga,
         'idPenjual': uId,
+        'namaPenjual': firstName + " " + lastName,
         'status': 'available',
         'tautanGambar': tautanGambar,
         'waktuPost': Timestamp.fromDate(DateTime.now()),
         'gameType': gameSelected,
         'server': serverSelected,
+        'namaProduk': namaProduk,
       },
     );
   }

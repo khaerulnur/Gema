@@ -17,6 +17,7 @@ class _AddItemDetailState extends State<AddItemDetail> {
   TextEditingController rankCtrl = TextEditingController();
   TextEditingController priceCtrl = TextEditingController();
   TextEditingController deskripsiCtrl = TextEditingController();
+  TextEditingController namaProdukCtrl = TextEditingController();
 
   List listGame = ["Valorant", "CSGO", "Mobile Legend", "Fifa23"];
   List listServer = ["SEA", "NA", "EU", "Japan"];
@@ -57,6 +58,7 @@ class _AddItemDetailState extends State<AddItemDetail> {
                   ),
                   Flexible(
                     child: TextFormField(
+                      controller: deskripsiCtrl,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return "Harap masukkan Deskripsi";
@@ -68,6 +70,14 @@ class _AddItemDetailState extends State<AddItemDetail> {
                   ),
                 ],
               ),
+              rowDetail((value) {
+                if (value == null || value.isEmpty) {
+                  return "Harap masukkan nama produk ";
+                } else if (value.length > 24) {
+                  return "Nama produk harus kurang dari 24 karakter";
+                }
+              }, "Nama Produk ", namaProdukCtrl, "nama produk",
+                  TextInputType.text),
               rowDetail((value) {
                 if (value == null || value.isEmpty) {
                   return "Harap masukkan Rank";
@@ -91,7 +101,7 @@ class _AddItemDetailState extends State<AddItemDetail> {
                     ),
                   ),
                   Expanded(
-                    flex: 7,
+                    flex: 5,
                     child: SizedBox(
                       width: double.infinity,
                       child: DropdownButton(
@@ -126,7 +136,7 @@ class _AddItemDetailState extends State<AddItemDetail> {
                     ),
                   ),
                   Expanded(
-                    flex: 7,
+                    flex: 5,
                     child: SizedBox(
                       width: double.infinity,
                       child: DropdownButton(
@@ -185,7 +195,7 @@ class _AddItemDetailState extends State<AddItemDetail> {
     return Row(
       children: [
         Expanded(
-          flex: 2,
+          flex: 3,
           child: Text(
             name,
             style: TextStyle(
@@ -232,8 +242,13 @@ class _AddItemDetailState extends State<AddItemDetail> {
                 String imageURL;
                 CustomLoading().showLoading();
                 imageURL = await uploadPic(widget.imageFile);
-                addAccountService(deskripsiCtrl.text, int.parse(priceCtrl.text),
-                    imageURL, gameSelected, serverSelected);
+                addAccountService(
+                    deskripsiCtrl.text,
+                    int.parse(priceCtrl.text),
+                    imageURL,
+                    gameSelected,
+                    serverSelected,
+                    namaProdukCtrl.text);
                 CustomLoading().dismissLoading();
                 Navigator.push(
                   context,

@@ -14,6 +14,6 @@ class PerdanaTselInputScreen extends StatefulWidget {
 class _PerdanaTselInputScreenState extends State<PerdanaTselInputScreen> {
   @override
   Widget build(BuildContext context) {
-    return ListAkunGlobal(stream: readAccountValorant());
+    return ListAkunGlobal(stream: readAccountValorant(), appbarTitle: 'Akun Valorant',);
   }
 }

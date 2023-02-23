@@ -4,6 +4,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_ecommerce/screens/home/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_ecommerce/screens/login.dart';
+import 'package:flutter_ecommerce/screens/product/product-detail.dart';
 import 'package:flutter_ecommerce/screens/profile/edit-profile.dart';
 import 'package:flutter_ecommerce/screens/register.dart';
 import 'package:flutter_ecommerce/services/auth-service.dart';
