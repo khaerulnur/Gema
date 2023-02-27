@@ -1,8 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce/screens/home/home.dart';
-import 'package:flutter_ecommerce/services/game-account-service.dart';
+import 'package:flutter_ecommerce/services/service.dart';
 import 'package:flutter_ecommerce/utility/custom-loading.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -77,17 +78,18 @@ class _AddItemDetailState extends State<AddItemDetail> {
                   return "Nama produk harus kurang dari 24 karakter";
                 }
               }, "Nama Produk ", namaProdukCtrl, "nama produk",
-                  TextInputType.text),
+                  TextInputType.text, []),
               rowDetail((value) {
                 if (value == null || value.isEmpty) {
                   return "Harap masukkan Rank";
                 }
-              }, "Rank ", rankCtrl, "rank", TextInputType.text),
+              }, "Rank ", rankCtrl, "rank", TextInputType.text, []),
               rowDetail((value) {
                 if (value == null || value.isEmpty) {
                   return "Harap masukkan Harga";
                 }
-              }, "Harga", priceCtrl, "harga", TextInputType.number),
+              }, "Harga", priceCtrl, "harga", TextInputType.number,
+                  [FilteringTextInputFormatter.digitsOnly]),
               Row(
                 children: [
                   Expanded(
@@ -191,7 +193,8 @@ class _AddItemDetailState extends State<AddItemDetail> {
       String name,
       TextEditingController controller,
       String hintText,
-      TextInputType keyboardType) {
+      TextInputType keyboardType,
+      List<TextInputFormatter>? inputFormatters) {
     return Row(
       children: [
         Expanded(
@@ -207,6 +210,7 @@ class _AddItemDetailState extends State<AddItemDetail> {
         Expanded(
           flex: 7,
           child: TextFormField(
+            inputFormatters: inputFormatters,
             keyboardType: keyboardType,
             validator: validator,
             controller: controller,

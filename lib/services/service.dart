@@ -39,6 +39,19 @@ Future<QuerySnapshot<Map<String, dynamic>>> readAccountMobileLegend() {
       .get();
 }
 
+Future<DocumentReference<Map<String, dynamic>>> addPaymentProof(
+    String tautanGambar, String idProduk) async {
+  final String uId = FirebaseAuth.instance.currentUser!.uid;
+
+  return db.collection("paymentProof").add(
+    {
+      'idPembeli': uId,
+      'tautanGambar': tautanGambar,
+      'waktuTransaksi': Timestamp.fromDate(DateTime.now()),
+    },
+  );
+}
+
 Future<DocumentReference<Map<String, dynamic>>> addAccountService(
     String deskripsi,
     int harga,

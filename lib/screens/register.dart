@@ -95,7 +95,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return "Harap Masukkan Nomor Hp";
-                      } else if (value.length <= 12) {
+                      } else if (value.length < 12) {
                         return "Masukkan minimal 12 digit Nomor Hp";
                       }
                     },
@@ -134,7 +134,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return "Harap Masukkan Password!";
-                      } else if (value.length <= 8) {
+                      } else if (value.length < 8) {
                         return "Masukkan Minimal 8 Digit Password";
                       } else if (passwordCtrl.text != confirmPassCtrl.text) {
                         return ("Masukkan Password Yang Sama");

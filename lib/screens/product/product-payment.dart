@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/screens/product/payment-summary.dart';
-import 'package:flutter_ecommerce/utility/style-text.dart';
 import 'package:hexcolor/hexcolor.dart';
+
+import '../../Utility/style-text.dart';
 
 class ProductPaymentScreen extends StatefulWidget {
   const ProductPaymentScreen({Key? key, required this.data}) : super(key: key);
@@ -44,7 +45,10 @@ class _ProductPaymentScreenState extends State<ProductPaymentScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute<void>(
-                  builder: (BuildContext context) => PaymentSummaryScreen(),
+                  builder: (BuildContext context) => PaymentSummaryScreen(
+                    totalHarga: widget.data["harga"] + 2000,
+                    metodePembayaran: metodePembayaran,
+                  ),
                 ),
               );
             },
@@ -73,17 +77,18 @@ class _ProductPaymentScreenState extends State<ProductPaymentScreen> {
                   Text(widget.data["namaProduk"], style: GemaStyle.text14bold),
                   Text(
                     "Rp." + widget.data["harga"].toString(),
-                    style: GemaStyle.text14normal,
+                    style: GemaStyle.textblack14normal,
                   ),
                 ],
               ),
               SizedBox(height: 5),
               Text(
                 widget.data["gameType"],
-                style: GemaStyle.text14normal,
+                style: GemaStyle.textblack14normal,
               ),
               SizedBox(height: 5),
-              Text(widget.data["namaPenjual"], style: GemaStyle.text14normal),
+              Text(widget.data["namaPenjual"],
+                  style: GemaStyle.textblack14normal),
               Divider(thickness: 5),
               Text("Metode Pembayaran", style: GemaStyle.text14bold),
               SizedBox(height: 5),
@@ -193,7 +198,7 @@ class _ProductPaymentScreenState extends State<ProductPaymentScreen> {
                       ),
                       Text(
                         "Metode Pembayaran",
-                        style: GemaStyle.text14normal,
+                        style: GemaStyle.textblack14normal,
                       )
                     ],
                   ),
@@ -205,7 +210,7 @@ class _ProductPaymentScreenState extends State<ProductPaymentScreen> {
                     children: [
                       Text(
                         "Pilih Metode Pembayaran",
-                        style: GemaStyle.text14normal,
+                        style: GemaStyle.textblack14normal,
                       ),
                       InkWell(
                         child: Container(
@@ -295,8 +300,8 @@ class _ProductPaymentScreenState extends State<ProductPaymentScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(title, style: GemaStyle.text14normal),
-        Text(value, style: GemaStyle.text14normal),
+        Text(title, style: GemaStyle.textblack14normal),
+        Text(value, style: GemaStyle.textblack14normal),
       ],
     );
   }
