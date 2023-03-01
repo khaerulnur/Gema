@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/screens/order%20history/order-history-screen.dart';
 import 'package:flutter_ecommerce/screens/profile/edit-profile.dart';
 import 'package:flutter_ecommerce/services/auth-service.dart';
 import 'package:flutter_ecommerce/services/profile-service.dart';
@@ -48,10 +49,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: Text(
                               snapshot.data!["firstName"]
                                       .toString()
-                                      .substring(0, 1).toUpperCase() +
+                                      .substring(0, 1)
+                                      .toUpperCase() +
                                   snapshot.data!["lastName"]
                                       .toString()
-                                      .substring(0, 1).toUpperCase(),
+                                      .substring(0, 1)
+                                      .toUpperCase(),
                               style: TextStyle(
                                 color: HexColor("5956E9"),
                                 fontWeight: FontWeight.w400,
@@ -125,18 +128,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       Divider(),
                       buildMenuItem("Edit Profile", () {
-                         Navigator.push(
-                            context,
-                            MaterialPageRoute<void>(
-                              builder: (BuildContext context) =>
-                                  const EditProfile(),
-                            ),
-                          );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (BuildContext context) =>
+                                const EditProfile(),
+                          ),
+                        );
                       }),
                       Divider(),
-                      buildMenuItem("Riwayat Pemesanan", () {}),
-                      Divider(),
-                      buildMenuItem("Chat", () {}),
+                      buildMenuItem("Daftar Pemesanan", () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (BuildContext context) =>
+                                const OrderHistoryScreen(),
+                          ),
+                        );
+                      }),
                       Divider(),
                       buildMenuItem("FAQ", () {}),
                       Divider(),
