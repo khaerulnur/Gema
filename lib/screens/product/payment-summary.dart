@@ -59,7 +59,12 @@ class _PaymentSummaryScreenState extends State<PaymentSummaryScreen> {
             Icons.arrow_back,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute<void>(
+                builder: (BuildContext context) => const HomeScreen(),
+              ),
+            );
           },
         ),
         title: Center(

@@ -14,7 +14,7 @@ class _MobileLegendListPageState extends State<MobileLegendListPage> {
   @override
   Widget build(BuildContext context) {
     return ListAkunGlobal(
-      stream: readAccountMobileLegend(),
+      stream: readAccount("Mobile Legend"),
       appbarTitle: 'Akun Mobile Legend ',
     );
   }

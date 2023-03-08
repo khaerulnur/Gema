@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce/screens/order%20history/order-history-screen.dart';
+import 'package:flutter_ecommerce/screens/history/ads-history.dart';
+import 'package:flutter_ecommerce/screens/history/order-history-screen.dart';
 import 'package:flutter_ecommerce/screens/profile/edit-profile.dart';
 import 'package:flutter_ecommerce/services/auth-service.dart';
 import 'package:flutter_ecommerce/services/profile-service.dart';
@@ -143,6 +144,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           MaterialPageRoute<void>(
                             builder: (BuildContext context) =>
                                 const OrderHistoryScreen(),
+                          ),
+                        );
+                      }),
+                       Divider(),
+                      buildMenuItem("Daftar Penjualan", () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (BuildContext context) =>
+                                const AdsHistoryScreen(),
                           ),
                         );
                       }),

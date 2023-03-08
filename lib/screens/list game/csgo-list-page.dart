@@ -14,6 +14,6 @@ class _CsgoListPageState extends State<CsgoListPage> {
   @override
   Widget build(BuildContext context) {
 
-    return ListAkunGlobal(stream: readAccountCsgo(), appbarTitle: 'Akun CSGO ',);
+    return ListAkunGlobal(stream: readAccount("CSGO"), appbarTitle: 'Akun CSGO ',);
   }
 }

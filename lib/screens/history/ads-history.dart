@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-class OrderHistoryScreen extends StatefulWidget {
-  const OrderHistoryScreen({Key? key}) : super(key: key);
+class AdsHistoryScreen extends StatefulWidget {
+  const AdsHistoryScreen({Key? key}) : super(key: key);
 
   @override
-  State<OrderHistoryScreen> createState() => _OrderHistoryScreenState();
+  State<AdsHistoryScreen> createState() => _AdsHistoryScreenState();
 }
 
-class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
+class _AdsHistoryScreenState extends State<AdsHistoryScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -20,7 +20,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
           appBar: AppBar(
             shadowColor: HexColor("#5956E9"),
             backgroundColor: HexColor("#5956E9"),
-            title: Text("Daftar Pemesanan"),
+            title: Text("Daftar Penjualan"),
             centerTitle: true,
             bottom: TabBar(
               isScrollable: true,
@@ -33,7 +33,8 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                       Text("Menunggu Konfirmasi", textAlign: TextAlign.center),
                 ),
                 Tab(
-                  child: Text("Proses Pengiriman", textAlign: TextAlign.center),
+                  child:
+                      Text("Menunggu Pengiriman", textAlign: TextAlign.center),
                 ),
                 Tab(
                   child: Text("Pesanan Selesai", textAlign: TextAlign.center),
@@ -50,7 +51,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                 child: Text("Menunggu Konfirmasi"),
               ),
               Center(
-                child: Text("Proses Pengiriman"),
+                child: Text("Menunggu Pengiriman"),
               ),
               Center(
                 child: Text("Pesanan Selesai"),

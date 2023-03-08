@@ -9,32 +9,14 @@ import 'package:flutter_ecommerce/models/user-model.dart';
 import 'package:flutter_ecommerce/screens/profile/edit-profile.dart';
 
 var db = FirebaseFirestore.instance;
-final CollectionReference idPenjual = FirebaseFirestore.instance.collection("");
 
-Future<QuerySnapshot<Map<String, dynamic>>> readAccountValorant() {
+Future<QuerySnapshot<Map<String, dynamic>>> readAccount(String gameType) {
+  final String uId = FirebaseAuth.instance.currentUser!.uid;
   return db
-      .collection("valorantAccount")
-      .orderBy("waktuPost", descending: true)
-      .get();
-}
-
-Future<QuerySnapshot<Map<String, dynamic>>> readAccountCsgo() {
-  return db
-      .collection("csgoAccount")
-      .orderBy("waktuPost", descending: true)
-      .get();
-}
-
-Future<QuerySnapshot<Map<String, dynamic>>> readAccountFifa23() {
-  return db
-      .collection("fifa23Account")
-      .orderBy("waktuPost", descending: true)
-      .get();
-}
-
-Future<QuerySnapshot<Map<String, dynamic>>> readAccountMobileLegend() {
-  return db
-      .collection("mobileLegendAccount")
+      .collection("gameAccount")
+      .where("gameType", isEqualTo: gameType)
+      .where("idPenjual", isNotEqualTo: uId)
+      .orderBy("idPenjual", descending: true)
       .orderBy("waktuPost", descending: true)
       .get();
 }
@@ -42,7 +24,6 @@ Future<QuerySnapshot<Map<String, dynamic>>> readAccountMobileLegend() {
 Future<DocumentReference<Map<String, dynamic>>> addPaymentProof(
     String tautanGambar, String idProduk) async {
   final String uId = FirebaseAuth.instance.currentUser!.uid;
-
   return db.collection("paymentProof").add(
     {
       'idPembeli': uId,
@@ -68,68 +49,31 @@ Future<DocumentReference<Map<String, dynamic>>> addAccountService(
     firstName = snapshot.data()!['firstName'].toString();
     lastName = snapshot.data()!['lastName'].toString();
   });
+  return db.collection("gameAccount").add(
+    {
+      'deskripsi': deskripsi,
+      'harga': harga,
+      'idPenjual': uId,
+      'namaPenjual': firstName + " " + lastName,
+      'status': 'available',
+      'tautanGambar': tautanGambar,
+      'waktuPost': Timestamp.fromDate(DateTime.now()),
+      'gameType': gameSelected,
+      'server': serverSelected,
+      'namaProduk': namaProduk,
+    },
+  );
+}
 
-  if (gameSelected == 'Valorant') {
-    return db.collection("valorantAccount").add(
-      {
-        'deskripsi': deskripsi,
-        'harga': harga,
-        'idPenjual': uId,
-        'namaPenjual': firstName + " " + lastName,
-        'status': 'available',
-        'tautanGambar': tautanGambar,
-        'waktuPost': Timestamp.fromDate(DateTime.now()),
-        'gameType': gameSelected,
-        'server': serverSelected,
-        'namaProduk': namaProduk,
-      },
-    );
-  } else if (gameSelected == "CSGO") {
-    return db.collection("csgoAccount").add(
-      {
-        'deskripsi': deskripsi,
-        'harga': harga,
-        'idPenjual': uId,
-        'namaPenjual': firstName + " " + lastName,
-        'status': 'available',
-        'tautanGambar': tautanGambar,
-        'waktuPost': Timestamp.fromDate(DateTime.now()),
-        'gameType': gameSelected,
-        'server': serverSelected,
-        'namaProduk': namaProduk,
-      },
-    );
-  } else if (gameSelected == "Mobile Legend") {
-    return db.collection("mobileLegendAccount").add(
-      {
-        'deskripsi': deskripsi,
-        'harga': harga,
-        'idPenjual': uId,
-        'namaPenjual': firstName + " " + lastName,
-        'status': 'available',
-        'tautanGambar': tautanGambar,
-        'waktuPost': Timestamp.fromDate(DateTime.now()),
-        'gameType': gameSelected,
-        'server': serverSelected,
-        'namaProduk': namaProduk,
-      },
-    );
-  } else {
-    return db.collection("fifa23Account").add(
-      {
-        'deskripsi': deskripsi,
-        'harga': harga,
-        'idPenjual': uId,
-        'namaPenjual': firstName + " " + lastName,
-        'status': 'available',
-        'tautanGambar': tautanGambar,
-        'waktuPost': Timestamp.fromDate(DateTime.now()),
-        'gameType': gameSelected,
-        'server': serverSelected,
-        'namaProduk': namaProduk,
-      },
-    );
-  }
+Future<DocumentReference<Map<String, dynamic>>> orderService(
+    String idPenjual, String idProduct) {
+  final String uId = FirebaseAuth.instance.currentUser!.uid;
+  return db.collection("order").add({
+    'waktuPost': Timestamp.fromDate(DateTime.now()),
+    'idPembeli': uId,
+    'idPenjual': idPenjual,
+    'idProduct': idProduct,
+  });
 }
 
 Future<String> uploadPic(File filePhoto) async {

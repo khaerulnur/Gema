@@ -101,34 +101,77 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                 ),
               ),
             ),
-            InkWell(
-              child: Container(
-                alignment: Alignment.center,
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                height: 50,
-                decoration: BoxDecoration(
-                  color: HexColor("#5956E9"),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const Text(
-                  "Beli",
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute<void>(
-                    builder: (BuildContext context) => ProductPaymentScreen(
-                      data: widget.data,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: InkWell(
+                    child: Container(
+                      alignment: Alignment.center,
+                      margin: const EdgeInsets.symmetric(horizontal: 20),
+                      height: 50,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: HexColor("#5956E9"),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Text(
+                        "Chat",
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) =>
+                              ProductPaymentScreen(
+                            data: widget.data,
+                          ),
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
+                ),
+                Expanded(
+                  child: InkWell(
+                    child: Container(
+                      alignment: Alignment.center,
+                      margin: const EdgeInsets.symmetric(horizontal: 20),
+                      height: 50,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: HexColor("#5956E9"),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Text(
+                        "Beli",
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) =>
+                              ProductPaymentScreen(
+                            data: widget.data,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
             const SizedBox(
               height: 20,

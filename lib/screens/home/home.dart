@@ -1,11 +1,12 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/screens/additem/preview-image.dart';
 import 'package:flutter_ecommerce/screens/home/home-content.dart';
 import 'package:flutter_ecommerce/screens/profile/profile.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../selling/my-product.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -22,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
       homeContent(context),
       Text("Home2"),
       Text("Sell3"),
-      Text("Sell"),
+      MyProductScreen(),
       ProfileScreen(),
     ];
     return opsiWidget.elementAt(selectedIndex);

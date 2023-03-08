@@ -13,7 +13,7 @@ class _FifaListPageState extends State<FifaListPage> {
   @override
   Widget build(BuildContext context) {
     return ListAkunGlobal(
-      stream: readAccountFifa23(),
+      stream: readAccount("Fifa23"),
       appbarTitle: 'Akun Fifa23 ',
     );
   }
