@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/screens/chat/chat-screen.dart';
 import 'package:flutter_ecommerce/screens/product/product-payment.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -129,10 +130,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute<void>(
-                          builder: (BuildContext context) =>
-                              ProductPaymentScreen(
-                            data: widget.data,
-                          ),
+                          builder: (BuildContext context) => ChatScreen(),
                         ),
                       );
                     },

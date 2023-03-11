@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/screens/additem/preview-image.dart';
+import 'package:flutter_ecommerce/screens/chat/chat-screen.dart';
 import 'package:flutter_ecommerce/screens/home/home-content.dart';
 import 'package:flutter_ecommerce/screens/profile/profile.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -21,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget generateListPage(BuildContext context) {
     List<Widget> opsiWidget = <Widget>[
       homeContent(context),
-      Text("Home2"),
+      ChatScreen(),
       Text("Sell3"),
       MyProductScreen(),
       ProfileScreen(),
