@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/screens/product/payment-summary.dart';
+import 'package:flutter_ecommerce/services/service.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../Utility/style-text.dart';
@@ -15,6 +16,7 @@ class ProductPaymentScreen extends StatefulWidget {
 
 class _ProductPaymentScreenState extends State<ProductPaymentScreen> {
   String metodePembayaran = 'BCA';
+  late DocumentReference<Map<String, dynamic>> documentReference;
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +43,16 @@ class _ProductPaymentScreenState extends State<ProductPaymentScreen> {
                 ),
               ),
             ),
-            onTap: () {
+            onTap: () async {
+              documentReference = await productPurchase(widget.data.reference,
+                  double.parse(widget.data["harga"]) + 2000, "");
               Navigator.push(
                 context,
                 MaterialPageRoute<void>(
                   builder: (BuildContext context) => PaymentSummaryScreen(
-                    totalHarga: widget.data["harga"] + 2000,
+                    totalHarga: double.parse(widget.data["harga"]) + 2000,
                     metodePembayaran: metodePembayaran,
+                    documentReference: documentReference,
                   ),
                 ),
               );
@@ -133,7 +138,9 @@ class _ProductPaymentScreenState extends State<ProductPaymentScreen> {
                       SizedBox(height: 5),
                       rowDetail(
                         "Total Pembayaran",
-                        "Rp." + (widget.data["harga"] + 2000).toString(),
+                        "Rp." +
+                            (double.parse(widget.data["harga"]) + 2000)
+                                .toString(),
                       )
                     ],
                   ),

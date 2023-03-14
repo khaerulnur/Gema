@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,10 +14,14 @@ import 'package:image_picker/image_picker.dart';
 
 class PaymentSummaryScreen extends StatefulWidget {
   const PaymentSummaryScreen(
-      {Key? key, required this.totalHarga, required this.metodePembayaran})
+      {Key? key,
+      required this.totalHarga,
+      required this.metodePembayaran,
+      required this.documentReference})
       : super(key: key);
-  final int totalHarga;
+  final double totalHarga;
   final String metodePembayaran;
+  final DocumentReference<Map<String, dynamic>> documentReference;
   @override
   State<PaymentSummaryScreen> createState() => _PaymentSummaryScreenState();
 }
@@ -48,8 +52,14 @@ class _PaymentSummaryScreenState extends State<PaymentSummaryScreen> {
               ),
             ),
           ),
-          onTap: () {
-            _getFromGallery();
+          onTap: () async {
+            await showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return takePicture();
+                });
+            String imageURL = await uploadPic(imageFile);
+            addPaymentProof(imageURL, widget.documentReference.id);
           },
         ),
       ),
@@ -229,8 +239,90 @@ class _PaymentSummaryScreenState extends State<PaymentSummaryScreen> {
     );
   }
 
+  takePicture() {
+    return SimpleDialog(
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      children: [
+        Container(
+          padding: EdgeInsets.only(top: 500),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              GestureDetector(
+                onTap: _getFromCamera,
+                child: Column(
+                  children: [
+                    Container(
+                      child: Center(
+                        child: Icon(
+                          Icons.camera_alt,
+                          color: HexColor("5956E9"),
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(
+                            width: 3,
+                            color: Color.fromARGB(255, 126, 121, 121),
+                          ),
+                          shape: BoxShape.circle),
+                      width: 60,
+                      height: 60,
+                    ),
+                    Text(
+                      "Take a Picture",
+                      style: TextStyle(
+                        fontFamily: "Montserrat",
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: _getFromGallery,
+                child: Column(
+                  children: [
+                    Container(
+                      child: Center(
+                        child: Icon(
+                          Icons.photo_album,
+                          color: HexColor("5956E9"),
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(
+                            width: 3,
+                            color: Color.fromARGB(255, 126, 121, 121),
+                          ),
+                          shape: BoxShape.circle),
+                      width: 60,
+                      height: 60,
+                    ),
+                    Text(
+                      "Choose From Album",
+                      style: TextStyle(
+                        fontFamily: "Montserrat",
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
   Future _getFromGallery() async {
-    CustomLoading().showLoading();
     XFile? pickedFile = await ImagePicker().pickImage(
       source: ImageSource.gallery,
       maxWidth: 1800,
@@ -242,86 +334,33 @@ class _PaymentSummaryScreenState extends State<PaymentSummaryScreen> {
           imageFile = File(pickedFile.path);
         },
       );
+      Navigator.pop(context);
     }
-    String imageURL = await uploadPic(imageFile);
-    addPaymentProof(imageURL, "2");
-    CustomLoading().dismissLoading();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-              Radius.circular(10.0),
-            )),
-            contentPadding: EdgeInsets.only(top: 10.0),
-            content: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 25,
-                      right: 25,
-                      top: 10,
-                    ),
-                    child: Image.asset('assets/images/ic_selalu_salah.png',
-                        width: 300),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 15, right: 15, bottom: 36),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 5),
-                      child: Text(
-                        "Pesanan diproses",
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-                    child: Container(
-                      height: 41,
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            elevation: 0,
-                            primary: HexColor("#5956E9"),
-                            shadowColor: Colors.transparent,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6.0))),
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute<void>(
-                              builder: (BuildContext context) => HomeScreen(),
-                            ),
-                          );
-                        },
-                        child: Text(
-                          "Ok",
-                          style: TextStyle(
-                              fontFamily: "montserrat",
-                              fontWeight: FontWeight.w700,
-                              /*letterSpacing: 0.3,*/
-                              fontSize: 16,
-                              color: Colors.white),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
+  }
+
+  Future _getFromCamera() async {
+    XFile? pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.camera,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      setState(
+        () {
+          imageFile = File(pickedFile.path);
         },
       );
-    });
+      Navigator.pop(context);
+    }
   }
+}
+
+Future<String> uploadPic(File filePhoto) async {
+  UploadTask? uploadTask;
+  String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+  final ref = FirebaseStorage.instance.ref().child("ss-payment/" + fileName);
+  uploadTask = ref.putFile(filePhoto);
+  final snapshot = await uploadTask.whenComplete(() {});
+  final urlDownload = await snapshot.ref.getDownloadURL();
+  return urlDownload;
 }

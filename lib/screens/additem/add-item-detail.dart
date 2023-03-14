@@ -246,13 +246,8 @@ class _AddItemDetailState extends State<AddItemDetail> {
                 String imageURL;
                 CustomLoading().showLoading();
                 imageURL = await uploadPic(widget.imageFile);
-                addAccountService(
-                    deskripsiCtrl.text,
-                    int.parse(priceCtrl.text),
-                    imageURL,
-                    gameSelected,
-                    serverSelected,
-                    namaProdukCtrl.text);
+                addAccountService(deskripsiCtrl.text, priceCtrl.text, imageURL,
+                    gameSelected, serverSelected, namaProdukCtrl.text);
                 CustomLoading().dismissLoading();
                 Navigator.push(
                   context,

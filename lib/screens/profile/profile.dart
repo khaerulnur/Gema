@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/screens/faq-screen.dart';
 import 'package:flutter_ecommerce/screens/history/ads-history.dart';
 import 'package:flutter_ecommerce/screens/history/order-history-screen.dart';
 import 'package:flutter_ecommerce/screens/profile/edit-profile.dart';
@@ -147,7 +148,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         );
                       }),
-                       Divider(),
+                      Divider(),
                       buildMenuItem("Daftar Penjualan", () {
                         Navigator.push(
                           context,
@@ -158,7 +159,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         );
                       }),
                       Divider(),
-                      buildMenuItem("FAQ", () {}),
+                      buildMenuItem("FAQ", () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (BuildContext context) =>
+                                const FaqScreen(),
+                          ),
+                        );
+                      }),
                       Divider(),
                       buildMenuItem(
                         "Logout",

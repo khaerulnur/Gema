@@ -48,7 +48,7 @@ class AuthService {
       var result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
 
-      profileService.setUser(firstName, lastName, noHp ,email);
+      profileService.setUser(firstName, lastName, noHp, email);
 
       return result;
     } catch (e) {

@@ -1,12 +1,10 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter_ecommerce/models/user-model.dart';
-import 'package:flutter_ecommerce/screens/profile/edit-profile.dart';
+
+
+
 
 var db = FirebaseFirestore.instance;
 
@@ -16,26 +14,15 @@ Future<QuerySnapshot<Map<String, dynamic>>> readAccount(String gameType) {
       .collection("gameAccount")
       .where("gameType", isEqualTo: gameType)
       .where("idPenjual", isNotEqualTo: uId)
+      .where("status",isEqualTo: "available")
       .orderBy("idPenjual", descending: true)
       .orderBy("waktuPost", descending: true)
       .get();
 }
 
-Future<DocumentReference<Map<String, dynamic>>> addPaymentProof(
-    String tautanGambar, String idProduk) async {
-  final String uId = FirebaseAuth.instance.currentUser!.uid;
-  return db.collection("paymentProof").add(
-    {
-      'idPembeli': uId,
-      'tautanGambar': tautanGambar,
-      'waktuTransaksi': Timestamp.fromDate(DateTime.now()),
-    },
-  );
-}
-
 Future<DocumentReference<Map<String, dynamic>>> addAccountService(
     String deskripsi,
-    int harga,
+    String harga,
     String tautanGambar,
     String gameSelected,
     String serverSelected,
@@ -84,4 +71,31 @@ Future<String> uploadPic(File filePhoto) async {
   final snapshot = await uploadTask.whenComplete(() {});
   final urlDownload = await snapshot.ref.getDownloadURL();
   return urlDownload;
+}
+
+Future<DocumentReference<Map<String, dynamic>>> productPurchase(
+    DocumentReference<Map<String, dynamic>> idProduct,
+    double totalBayar,
+    String urlBuktiPembayaran) {
+  final String uId = FirebaseAuth.instance.currentUser!.uid;
+  db.collection("gameAccount").doc(idProduct.id).set(
+    {"status": "sold"},
+    SetOptions(merge: true),
+  );
+  return db.collection("productPurchase").add({
+    'waktuPost': Timestamp.fromDate(DateTime.now()),
+    'idPembeli': uId,
+    'idProduct': idProduct,
+    'totalBayar': totalBayar,
+    'urlBuktiPembayaran':
+        urlBuktiPembayaran.isEmpty ? null : urlBuktiPembayaran,
+    'status': "pending"
+  });
+}
+
+addPaymentProof(String urlBuktiPambayaran, String id) {
+  return db.collection("productPurchase").doc(id).set(
+    {"urlBuktiPembayaran": urlBuktiPambayaran, "status": "verify"},
+    SetOptions(merge: true),
+  );
 }

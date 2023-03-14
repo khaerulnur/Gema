@@ -28,16 +28,6 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                 fontSize: 25, fontWeight: FontWeight.bold, color: Colors.white),
           ),
           centerTitle: true,
-          actions: const [
-            Icon(
-              Icons.favorite_border,
-              color: Colors.black,
-              size: 28,
-            ),
-            SizedBox(
-              width: 10,
-            )
-          ],
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
