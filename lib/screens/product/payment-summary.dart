@@ -17,11 +17,13 @@ class PaymentSummaryScreen extends StatefulWidget {
       {Key? key,
       required this.totalHarga,
       required this.metodePembayaran,
-      required this.documentReference})
+      required this.documentReference,
+      required this.routeFrom})
       : super(key: key);
   final double totalHarga;
   final String metodePembayaran;
-  final DocumentReference<Map<String, dynamic>> documentReference;
+  final String documentReference;
+  final String routeFrom;
   @override
   State<PaymentSummaryScreen> createState() => _PaymentSummaryScreenState();
 }
@@ -46,7 +48,7 @@ class _PaymentSummaryScreenState extends State<PaymentSummaryScreen> {
             child: const Text(
               "Upload bukti pembayaran",
               style: TextStyle(
-                fontSize: 22,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
@@ -59,7 +61,18 @@ class _PaymentSummaryScreenState extends State<PaymentSummaryScreen> {
                   return takePicture();
                 });
             String imageURL = await uploadPic(imageFile);
-            addPaymentProof(imageURL, widget.documentReference.id);
+            addPaymentProof(imageURL, widget.documentReference);
+            if (widget.routeFrom == "history") {
+              Navigator.pop(context);
+              Navigator.pop(context);
+            } else {
+              Navigator.push(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (BuildContext context) => const HomeScreen(),
+                ),
+              );
+            }
           },
         ),
       ),
@@ -69,12 +82,16 @@ class _PaymentSummaryScreenState extends State<PaymentSummaryScreen> {
             Icons.arrow_back,
           ),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute<void>(
-                builder: (BuildContext context) => const HomeScreen(),
-              ),
-            );
+            if (widget.routeFrom == "history") {
+              Navigator.pop(context);
+            } else {
+              Navigator.push(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (BuildContext context) => const HomeScreen(),
+                ),
+              );
+            }
           },
         ),
         title: Center(

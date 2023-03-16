@@ -22,7 +22,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
-      future: ProfileService().getUser(),
+      future: ProfileService().getCurrentUser(),
       builder: (BuildContext context, snapshot) {
         if (snapshot.hasData) {
           return Container(
@@ -129,14 +129,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         },
                       ),
                       Divider(),
-                      buildMenuItem("Edit Profile", () {
-                        Navigator.push(
+                      buildMenuItem("Edit Profile", () async {
+                        await Navigator.push(
                           context,
                           MaterialPageRoute<void>(
                             builder: (BuildContext context) =>
                                 const EditProfile(),
                           ),
                         );
+                        setState(() {});
                       }),
                       Divider(),
                       buildMenuItem("Daftar Pemesanan", () {

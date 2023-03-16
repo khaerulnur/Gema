@@ -13,7 +13,7 @@ class _FaqScreenState extends State<FaqScreen> {
     {
       'question': 'Apa itu Gema',
       'answer':
-          'Flutter is a mobile app development framework created by Google. It allows developers to build natively compiled applications for mobile, web, and desktop from a single codebase.'
+          'Gema adalah Aplikasi jual-beli akun game yang dikembangkan oleh seorang mahasiswa ,agar transaksi antara penjual dan beli aman dan nyaman'
     },
     {
       'question': 'Pedoman keamanan perdagangan',
@@ -21,25 +21,21 @@ class _FaqScreenState extends State<FaqScreen> {
           '1. JANGAN membeli produk sebagai bentuk pembayaran atau sebagai pertukaran untuk barang lain.  2. JANGAN  pernah setuju untuk bertransaksi di luar G2G  3. JANGAN melakukan transaksi lain dalam game. Pembelian hanya untuk item yang sesuai dengan deskripsi pesanan Anda saja'
     },
     {
-      'question': 'Is Flutter only for mobile app development?',
+      'question': 'Apa saja metode pembayaran yang dapat saya gunakan?',
       'answer':
-          'No, Flutter can be used to develop applications for mobile, web, and desktop. It supports building for Android, iOS, web, and desktop platforms.'
+          'Gema menawarkan  2 metode pembayaran dengan kesediaan yang ada antara lain ATM BCA dan pembayaran digital yaitu OVO.'
     },
     {
-      'question': 'Is Flutter only for Android and iOS?',
+      'question': 'DO‘S?',
       'answer':
-          'No, Flutter can be used to build applications for Android, iOS, web, and desktop. It has good support for all these platforms.'
-    },
-    {
-      'question': 'Is Flutter only for small apps?',
-      'answer':
-          'No, Flutter can be used to build small as well as large and complex apps. It has the capabilities and performance to handle any size of app.'
+          'Jika Anda menemukan penjual melakukan perilaku yang tidak seharusnya, SILAHKAN mengambil tangkapan layar atau bukti apapun yang bisa Anda dapatkan dan kirimkan melalui email ke krulnr31@gmail.com, disertai dengan nomor pesanan Anda dan ringkasan keluhan'
     },
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text("FAQ"),
         shadowColor: HexColor("#5956E9"),
         backgroundColor: HexColor("#5956E9"),
         centerTitle: true,

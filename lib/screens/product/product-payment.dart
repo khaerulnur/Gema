@@ -44,15 +44,20 @@ class _ProductPaymentScreenState extends State<ProductPaymentScreen> {
               ),
             ),
             onTap: () async {
-              documentReference = await productPurchase(widget.data.reference,
-                  double.parse(widget.data["harga"]) + 2000, "");
+              documentReference = await productPurchase(
+                  widget.data.reference.id,
+                  double.parse(widget.data["harga"]) + 2000,
+                  "",
+                  metodePembayaran,
+                  widget.data["idPenjual"]);
               Navigator.push(
                 context,
                 MaterialPageRoute<void>(
                   builder: (BuildContext context) => PaymentSummaryScreen(
                     totalHarga: double.parse(widget.data["harga"]) + 2000,
                     metodePembayaran: metodePembayaran,
-                    documentReference: documentReference,
+                    documentReference: documentReference.id,
+                    routeFrom: 'home',
                   ),
                 ),
               );

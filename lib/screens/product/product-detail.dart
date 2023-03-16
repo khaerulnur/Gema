@@ -110,7 +110,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                       child: const Text(
                         "Chat",
                         style: TextStyle(
-                          fontSize: 22,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
@@ -140,7 +140,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                       child: const Text(
                         "Beli",
                         style: TextStyle(
-                          fontSize: 22,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),

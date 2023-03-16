@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/screens/product/payment-summary.dart';
 import 'package:hexcolor/hexcolor.dart';
+
+import '../../services/service.dart';
+import 'list-order-history.dart';
 
 class OrderHistoryScreen extends StatefulWidget {
   const OrderHistoryScreen({Key? key}) : super(key: key);
@@ -14,7 +18,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
     return SafeArea(
       top: true,
       child: DefaultTabController(
-        initialIndex: 1,
+        initialIndex: 0,
         length: 5,
         child: Scaffold(
           appBar: AppBar(
@@ -45,23 +49,18 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
               ],
             ),
           ),
-          body: const TabBarView(
+          body: TabBarView(
             children: <Widget>[
-              Center(
-                child: Text("Semua Pesanan "),
-              ),
-              Center(
-                child: Text("Menunggu Pembayaran"),
-              ),
-              Center(
-                child: Text("Menunggu Konfirmasi"),
-              ),
-              Center(
-                child: Text("Proses Pengiriman"),
-              ),
-              Center(
-                child: Text("Pesanan Selesai"),
-              ),
+              ListOrderHistoryScreen(
+                  stream: readPurchaseHistory(), route: "verify"),
+              ListOrderHistoryScreen(
+                  stream: readPurchaseHistoryPending(), route: "pending"),
+              ListOrderHistoryScreen(
+                  stream: readPurchaseHistoryVerify(), route: "verify"),
+              ListOrderHistoryScreen(
+                  stream: readPurchaseHistoryPaid(), route: "paid"),
+              ListOrderHistoryScreen(
+                  stream: readPurchaseHistoryComplete(), route: "complete"),
             ],
           ),
         ),

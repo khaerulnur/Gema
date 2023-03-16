@@ -23,9 +23,25 @@ class ProfileService {
     );
   }
 
-  Future<DocumentSnapshot<Map<String, dynamic>>> getUser() {
+  Future<DocumentSnapshot<Map<String, dynamic>>> getCurrentUser() {
     var firebaseUser = FirebaseAuth.instance.currentUser;
     print(firebaseUser!.uid);
     return db.collection("user").doc(firebaseUser.uid).get();
+  }
+
+  Future<DocumentSnapshot<Map<String, dynamic>>> getUserById(String id) {
+    return db.collection("user").doc(id).get();
+  }
+
+  editProfile(String firstName, String lastName, String noHp) {
+    var firebaseUser = FirebaseAuth.instance.currentUser;
+    return db.collection("user").doc(firebaseUser!.uid).set(
+      {
+        "firstName": firstName,
+        "lastName": lastName,
+        "noHp": noHp,
+      },
+      SetOptions(merge: true),
+    );
   }
 }

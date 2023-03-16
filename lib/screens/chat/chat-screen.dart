@@ -32,13 +32,6 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: null,
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.close),
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
-              }),
-        ],
         title: Text('Chat'),
         backgroundColor: Colors.lightBlueAccent,
       ),
