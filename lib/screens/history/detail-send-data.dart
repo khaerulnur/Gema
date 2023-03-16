@@ -240,7 +240,7 @@ class _DetailSendDataScreenState extends State<DetailSendDataScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute<void>(
-                    builder: (BuildContext context) => ChatScreen(),
+                    builder: (BuildContext context) => ChatScreen(routeFrom: 'detailProduct',),
                   ),
                 );
               },
@@ -260,7 +260,7 @@ class _DetailSendDataScreenState extends State<DetailSendDataScreen> {
                 ),
                 child: Center(
                   child: const Text(
-                    "Selesaikan Pesanan",
+                    "Complete order",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 18,

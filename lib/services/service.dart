@@ -155,9 +155,29 @@ Future<QuerySnapshot<Map<String, dynamic>>> readPurchaseHistoryComplete() {
       .get();
 }
 
+Future<QuerySnapshot<Map<String, dynamic>>> readListMyProductAvailable() {
+  final String uId = FirebaseAuth.instance.currentUser!.uid;
+  return db
+      .collection("gameAccount")
+      .where("status", isEqualTo: "available")
+      .where("idPenjual", isEqualTo: uId)
+      .orderBy("waktuPost", descending: true)
+      .get();
+}
+Future<QuerySnapshot<Map<String, dynamic>>> readListMyProductSold() {
+  final String uId = FirebaseAuth.instance.currentUser!.uid;
+  return db
+      .collection("gameAccount")
+      .where("status", isEqualTo: "sold")
+      .where("idPenjual", isEqualTo: uId)
+      .orderBy("waktuPost", descending: true)
+      .get();
+}
+
 completeOrder(String id) {
   return db.collection("productPurchase").doc(id).set(
     {"status": "complete"},
     SetOptions(merge: true),
   );
 }
+

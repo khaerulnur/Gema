@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget generateListPage(BuildContext context) {
     List<Widget> opsiWidget = <Widget>[
       homeContent(context),
-      ChatScreen(),
+      ChatScreen(routeFrom: 'home',),
       Text("Sell3"),
       MyProductScreen(),
       ProfileScreen(),
@@ -83,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
               });
             } else if (index == 1) {
               setState(() {
-                isProfile = false;
+                isProfile = true;
                 selectedIndex = index;
               });
             } else if (index == 2) {

@@ -54,6 +54,8 @@ class _FaqScreenState extends State<FaqScreen> {
             final question = questions[index]['question'];
             final answer = questions[index]['answer'];
             return ExpansionTile(
+              iconColor: HexColor("#5956E9"),
+              textColor: HexColor("#5956E9"),
               title: Text(question!),
               children: [
                 Padding(

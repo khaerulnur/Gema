@@ -120,7 +120,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute<void>(
-                          builder: (BuildContext context) => ChatScreen(),
+                          builder: (BuildContext context) => ChatScreen(routeFrom: 'detailProduct',),
                         ),
                       );
                     },

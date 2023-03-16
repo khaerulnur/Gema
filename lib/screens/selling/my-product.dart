@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/screens/product/list-my-product.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class MyProductScreen extends StatefulWidget {
@@ -14,13 +15,14 @@ class _MyProductScreenState extends State<MyProductScreen> {
     return SafeArea(
       top: true,
       child: DefaultTabController(
-        initialIndex: 1,
+        initialIndex: 0,
         length: 2,
         child: Scaffold(
           appBar: AppBar(
             shadowColor: HexColor("#5956E9"),
             backgroundColor: HexColor("#5956E9"),
             title: Text("Produk Saya"),
+            leading: Container(),
             centerTitle: true,
             bottom: TabBar(
               tabs: const <Widget>[
@@ -35,12 +37,8 @@ class _MyProductScreenState extends State<MyProductScreen> {
           ),
           body: const TabBarView(
             children: <Widget>[
-              Center(
-                child: Text("Live"),
-              ),
-              Center(
-                child: Text("Habis"),
-              ),
+              ListMyOrderProductScreen(statusProduct: 'available'),
+              ListMyOrderProductScreen(statusProduct: 'sold'),
             ],
           ),
         ),

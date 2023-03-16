@@ -150,15 +150,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         );
                       }),
                       Divider(),
-                      buildMenuItem("Daftar Penjualan", () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (BuildContext context) =>
-                                const AdsHistoryScreen(),
-                          ),
-                        );
-                      }),
                       Divider(),
                       buildMenuItem("FAQ", () {
                         Navigator.push(

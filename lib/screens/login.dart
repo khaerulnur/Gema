@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/Utility/style-text.dart';
+import 'package:flutter_ecommerce/screens/forgot-password.dart';
 import 'package:flutter_ecommerce/screens/home/home.dart';
 import 'package:flutter_ecommerce/screens/register.dart';
 import 'package:flutter_ecommerce/services/auth-service.dart';
@@ -141,7 +142,15 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: HexColor("#5956E9"),
                         ),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (BuildContext context) =>
+                                const RestPassword(),
+                          ),
+                        );
+                      },
                     ),
                     SizedBox(
                       height: 30,
@@ -161,7 +170,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   onPressed: () async {
                     if (formKey.currentState!.validate()) {
-                      authController.login(emailCtrl.text, passCtrl.text,context);
+                      authController.login(
+                          emailCtrl.text, passCtrl.text, context);
                     }
                   },
                   child: Text("Login"),

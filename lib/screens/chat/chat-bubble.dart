@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class ChatBubble extends StatefulWidget {
   @override
@@ -60,7 +61,7 @@ class _ChatBubbleState extends State<ChatBubble> {
                         bottomRight: Radius.circular(20.0),
                       )),
                       margin: EdgeInsets.all(5.0),
-                      color: isFromMe ? Colors.lightBlue : Colors.blueGrey,
+                      color: isFromMe ? HexColor("#5956E9") : Colors.blueGrey,
                       child: Padding(
                         padding: EdgeInsets.fromLTRB(12.0, 8.0, 12.0, 8.0),
                         child: Column(
@@ -76,7 +77,7 @@ class _ChatBubbleState extends State<ChatBubble> {
                             Text(
                               email,
                               style: TextStyle(
-                                color: Colors.lightGreenAccent,
+                                color: Colors.white,
                                 fontSize: 10,
                               ),
                             ),
