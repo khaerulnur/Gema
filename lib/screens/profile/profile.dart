@@ -150,7 +150,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         );
                       }),
                       Divider(),
-                      Divider(),
                       buildMenuItem("FAQ", () {
                         Navigator.push(
                           context,
