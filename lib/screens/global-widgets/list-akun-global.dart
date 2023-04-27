@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce/models/account_model.dart';
 import 'package:flutter_ecommerce/screens/product/product-detail.dart';
 import 'package:flutter_ecommerce/utility/custom-loading.dart';
 import 'package:hexcolor/hexcolor.dart';
