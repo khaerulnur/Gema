@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce/main.dart';
 import 'package:flutter_ecommerce/screens/home/home.dart';
 import 'package:flutter_ecommerce/screens/login.dart';
+import 'package:flutter_ecommerce/screens/verify-email.dart';
 import 'package:flutter_ecommerce/services/auth-service.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -50,7 +51,7 @@ class _SplashScreenState extends State<SplashScreen>
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.active) {
               CustomLoading().dismissLoading();
-              return snapshot.data != null ? HomeScreen() : LoginScreen();
+              return snapshot.data != null ? VerifyEmailScreen() : LoginScreen();
             } else {
               return CircularProgressIndicator(
                 color: Colors.black54,
